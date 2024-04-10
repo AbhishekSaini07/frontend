@@ -1,5 +1,4 @@
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
 import { newUserData } from '../DataModel/newUserData';
 import { UserData } from '../DataModel/userModel';
 
@@ -40,14 +39,15 @@ const UserService = {
     },
 
     Logout: async () => {
-        const navigate = useNavigate();
         try {
             await axios.get(`${BASE_URL}/logout`, { withCredentials: true });
             localStorage.removeItem('token'); // Remove token from local storage on logout
            // Redirect to login page
+           return 1;
+            
         } catch (error) {
-            handleServiceError(error);
-            throw new Error('Logout failed');
+            console.log("Logout failed");
+            return 0;
         }
     },
 
@@ -55,6 +55,21 @@ const UserService = {
         try {
             const token = localStorage.getItem('token');
             const response = await axios.get<UserData[]>(`${BASE_URL}/users`, {
+                withCredentials: true,
+                headers: {
+                    Authorization: `Bearer ${token}` // Include token in Authorization header
+                }
+            });
+            return response.data;
+        } catch (error) {
+            handleServiceError(error);
+            throw new Error('Failed to fetch users');
+        }
+    },
+    fetchUser: async () => {
+        try {
+            const token = localStorage.getItem('token');
+            const response = await axios.get<UserData>(`${BASE_URL}/user`, {
                 withCredentials: true,
                 headers: {
                     Authorization: `Bearer ${token}` // Include token in Authorization header

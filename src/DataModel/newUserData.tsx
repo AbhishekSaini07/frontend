@@ -4,5 +4,5 @@ export interface newUserData {
     email: string;
     password: string;
     userDescription: string;
-    imageUrl?: string;
+   // imageUrl?: string;
 }

@@ -3,7 +3,7 @@ import './App.css';
 import Home from './Component/Home';
 import Login from './Component/Login';
 import Signup from './Component/Signup';
-import Example from './Component/Tail';
+import HomeScreen from './Component/HomeScreen';
 
 function App() {
   
@@ -13,9 +13,9 @@ function App() {
 
       <div className="App">
         <Routes> 
-        <Route path='/' element={<Example />}></Route>
+        <Route path='/' element={<Login/>}></Route>
         <Route path='/signup' element={<Signup />}></Route>
-        <Route path='/home' element={<Home />}></Route>
+        <Route path='/home' element={<HomeScreen />}></Route>
          
         </Routes>
       </div>

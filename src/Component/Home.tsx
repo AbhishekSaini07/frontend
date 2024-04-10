@@ -1,14 +1,18 @@
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { TaskData } from '../DataModel/taskModel';
 import TaskService from '../Service/TaskService';
 import AddTaskForm from './AddTaskFormComponent';
 import MyButton from './Button';
 import TaskComponent from './TaskConponent';
 
-
+import { UserData } from '../DataModel/userModel';
+import UserService from '../Service/UserService';
 const Home: React.FC = () => {
     const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
     const [tasks, setTasks] = useState<TaskData[]>([]); 
+    const [allUser, setAllUser] = useState<UserData[]>([]);
+    const navigate = useNavigate();
     useEffect(() => {
         // Fetch tasks from server when component mounts
         const fetchTasks = async () => {
@@ -19,9 +23,18 @@ const Home: React.FC = () => {
                 console.error('Failed to fetch tasks:', error);
             }
         };
+      //   const fetchUsers = async () => {
+      //     try {
+      //         const fetchedUsers = await UserService.fetchAllUsers();
+      //         setAllUser(fetchedUsers);
+      //     } catch (error) {
+      //         console.error('Failed to fetch tasks:', error);
+      //     }
+      // };
 
         fetchTasks(); // Call fetchTasks function
     }, []);
+    
 
 
     
@@ -29,12 +42,22 @@ const Home: React.FC = () => {
       setIsModalOpen(prevState => !prevState);
   };
 
+  async function handelLogOut() {
+    const result = await UserService.Logout();
+    if(result){
+      navigate("/");
+    }
+    else{
+      alert("Logout Failed");
+    }
+  }
+
     return (
         <div>
+          <button onClick={handelLogOut}>Logout</button>
             
             <MyButton text='Button' onClick={() => alert("Okay")} />
-        <TaskComponent taskId={1} taskName="My First Task"
-          taskDescription='Nothing' taskDeadline='now' taskCreatedTime='prev' taskStatus='Pending' />
+        
         <h1>Task Management App</h1>
         {tasks.map(task => (
                 <TaskComponent
@@ -58,8 +81,15 @@ const Home: React.FC = () => {
             </div>
           </div>
         )}
+        <h3> All Users </h3>
+      
+        
         </div>
     );
 };
 
 export default Home;
+function Logout() {
+  throw new Error('Function not implemented.');
+}
+

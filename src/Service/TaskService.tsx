@@ -6,7 +6,7 @@ const BASE_URL = "http://localhost:5000"; // Update with your backend URL
 
 const TaskService = {
     taskComplete: async (taskId: number) => {
-        alert(taskId);
+        
         try {
             const token = localStorage.getItem("token"); // Retrieve token from local storage
             const response = await axios.put(

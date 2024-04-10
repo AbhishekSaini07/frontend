@@ -1,0 +1,43 @@
+.task {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items:center;
+  background-color: rgb(0, 0, 0,0.1);
+  padding: 20px 30px 20px 30px ;
+  margin: 20px;
+  border-radius: 5px;
+  color: rgb(240, 237, 237);
+
+}
+
+.time{
+   
+    text-align: left;
+}
+
+
+
+
+.buttoncolumn {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+
+.task button {
+  padding: 8px 16px;
+  background-color: #007bff;
+  color: #fff;
+  width: 120px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin-top: 10px; /* Adjust the spacing between the buttons */
+}
+
+.task button:hover {
+  background-color: #0056b3;
+}
